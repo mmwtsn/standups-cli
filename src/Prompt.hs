@@ -2,6 +2,7 @@ module Prompt where
 
 import System.Console.ANSI
 import Data
+import ReadWrite
 
 -- Default text formatting when user is prompted for input
 promptColor :: System.Console.ANSI.SGR
@@ -34,4 +35,4 @@ promptAction = promptBase "Task?     "
 createStandup :: IO ()
 createStandup = promptCategory >>= (\c ->
                 promptAction   >>= (\a ->
-                print $ Standup [Task c a] [Task "attn" "do work"]))
+                writeStandup $ Standup [Task c a] [Task "attn" "do work"]))

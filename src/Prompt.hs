@@ -32,7 +32,6 @@ promptAction = promptBase "Task?     "
 
 -- Create a new instance of Standup from user input with a default done Task
 createStandup :: IO ()
-createStandup = do
-  _category <- promptCategory
-  _action <- promptAction
-  print $ Standup [Task _category _action] [Task "attn" "do work"]
+createStandup = promptCategory >>= (\c ->
+                promptAction   >>= (\a ->
+                print $ Standup [Task c a] [Task "attn" "do work"]))

@@ -23,6 +23,7 @@ library
                      , bytestring
                      , directory
                      , filepath
+                     , time
   default-language:    Haskell2010
 
 executable standup

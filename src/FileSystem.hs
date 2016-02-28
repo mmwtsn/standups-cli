@@ -4,18 +4,22 @@ import Data.Time
 import System.Directory
 import System.FilePath.Posix
 
--- Prepend file path to ".standups" archive directory
-prependPath :: FilePath -> FilePath
-prependPath = joinPath . (: [".standups"])
+-- Format archive name so it's sortable and legible: "2016-12-31-Thursday.json"
+formatArchiveFileName :: ZonedTime -> String
+formatArchiveFileName = formatTime defaultTimeLocale "%F-%A.json"
 
--- Absolute path to the standup's archive directory in "~/.standups"
-basePath :: IO FilePath
-basePath = getHomeDirectory >>= return . prependPath
+-- Time-stamped file name for today's standup for the caller's time zone
+archiveFileName :: IO FilePath
+archiveFileName = fmap formatArchiveFileName getZonedTime
 
--- Format a time stamp like "1947-01-08-Wednesday.json"
-formatTimeStamp :: ZonedTime -> String
-formatTimeStamp = formatTime defaultTimeLocale "%F-%A.json"
+-- Absolute path to a user's archive directory: "~/.standups"
+basePath file = getHomeDirectory >>= (\home ->
+                return $ joinPath [home, ".standups", file])
 
--- Build time-stamped file name for today's standup
-currentFileName :: IO String
-currentFileName = getZonedTime >>= return . formatTimeStamp
+-- Absolute file path to the stash file where in-progress standup data is saved
+stashPath :: IO FilePath
+stashPath = basePath ".in-progress.json"
+
+-- Absolute file path to the archive file where finished standups are saved
+archivePath :: IO FilePath
+archivePath = archiveFileName >>= basePath

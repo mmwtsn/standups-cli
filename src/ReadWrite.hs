@@ -1,13 +1,11 @@
 module ReadWrite where
 
+import           Data.Aeson
 import           Data.Aeson.Encode.Pretty
 import qualified Data.ByteString.Lazy as BS
 import           GHC.Word
 import           Data
-
--- Name for temporary file used while standup is being added to
-inProgress :: FilePath
-inProgress = ".in-progress.json"
+import           FileSystem
 
 -- Override aeson-pretty's four-space default value, ignore sort function
 config :: Data.Aeson.Encode.Pretty.Config
@@ -26,9 +24,9 @@ encodeWithNewLine :: Standup -> BS.ByteString
 encodeWithNewLine standup = appendNewLine $ encodePretty' config standup
 
 -- Write a JSON-encoded Standup to disk, overwriting the existing file
-writeStandup :: Standup -> IO ()
-writeStandup standup = BS.writeFile inProgress $ encodeWithNewLine standup
+writeStandup :: FilePath -> Standup -> IO ()
+writeStandup path standup = BS.writeFile path $ encodeWithNewLine standup
 
--- Read a JSON-encoded standup from disk without parsing it
-readStandup :: IO BS.ByteString
-readStandup = BS.readFile inProgress
+-- Read and parse a JSON-encoded standup from disk
+readStandup :: IO (Either String Standup)
+readStandup = fmap eitherDecode . BS.readFile =<< stashPath

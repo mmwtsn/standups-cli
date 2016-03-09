@@ -22,18 +22,18 @@ createStandup = promptCategory >>= \c ->
 
 -- Prompt user for Task and append it to the current standup's "done" Task
 addDone :: IO ()
-addDone = updateStandup appendDone
+addDone = updateStandup stashPath appendDone
 
 -- Prompt user for Task and append it to the current standup's "todo" Task
 addTodo :: IO ()
-addTodo = updateStandup appendTodo
+addTodo = updateStandup stashPath appendTodo
 
 -- Prompt user for a Task and attempt to update the in-progress Standup with it
-updateStandup :: (String -> String -> Standup -> Standup) -> IO ()
-updateStandup update = promptCategory >>= \c ->
-                       promptAction   >>= \a ->
-                       stashPath      >>= \path ->
-                       eitherRead c a path update
+updateStandup :: IO FilePath -> (String -> String -> Standup -> Standup) -> IO ()
+updateStandup filePath update = promptCategory >>= \c ->
+                                promptAction   >>= \a ->
+                                filePath       >>= \path ->
+                                eitherRead c a path update
 
 -- Create a new Task and append it to the end of a Standup's "done" Task
 appendDone :: String -> String -> Standup -> Standup

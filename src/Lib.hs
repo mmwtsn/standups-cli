@@ -49,6 +49,7 @@ eitherRead :: String -> String -> FilePath
            -> (String -> String -> Standup -> Standup)
            -> IO ()
 eitherRead c a path update = readStandup >>= \decoded ->
-                    case decoded of
-                      Left err      -> putStrLn err
-                      Right standup -> writeStandup path $ update c a standup
+                               case decoded of
+                                 Left err      -> putStrLn err
+                                 Right standup ->
+                                   writeStandup path $ update c a standup

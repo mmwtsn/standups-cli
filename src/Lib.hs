@@ -1,6 +1,7 @@
 module Lib
     ( addDone
     , addTodo
+    , archiveStandup
     , createStandup
     , someFunc
     ) where
@@ -28,6 +29,10 @@ addDone = updateStandup stashPath appendDone
 addTodo :: IO ()
 addTodo = updateStandup stashPath appendTodo
 
+-- Remove the default "todo" Task and archive the in-progress standup
+archiveStandup :: IO ()
+archiveStandup = updateStandup archivePath replaceDefaultTodo
+
 -- Prompt user for a Task and attempt to update the in-progress Standup with it
 updateStandup :: IO FilePath -> (String -> String -> Standup -> Standup) -> IO ()
 updateStandup filePath update = promptCategory >>= \c ->
@@ -42,6 +47,11 @@ appendDone c a standup = Standup (done standup ++ [Task c a]) (todo standup)
 -- Create a new Task and append it to the end of a Standup's "todo" Task
 appendTodo :: String -> String -> Standup -> Standup
 appendTodo c a standup = Standup (done standup) (todo standup ++ [Task c a])
+
+-- Remove the default "todo" Task at the head of the Task list
+replaceDefaultTodo :: String -> String -> Standup -> Standup
+replaceDefaultTodo c a standup = Standup (done standup) (todos ++ [Task c a])
+                                 where todos = tail $ todo standup
 
 -- Attempt to read a JSON-encoded Standup from the file system and either print
 -- an error if unable to decode it or update it with a given update function

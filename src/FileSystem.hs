@@ -13,6 +13,7 @@ archiveFileName :: IO FilePath
 archiveFileName = fmap formatArchiveFileName getZonedTime
 
 -- Absolute path to a user's archive directory: "~/.standups"
+basePath :: FilePath -> IO FilePath
 basePath file = getHomeDirectory >>= (\home ->
                 return $ joinPath [home, ".standups", file])
 

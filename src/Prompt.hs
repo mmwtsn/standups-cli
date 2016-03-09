@@ -1,9 +1,6 @@
 module Prompt where
 
 import System.Console.ANSI
-import Data
-import ReadWrite
-import FileSystem
 
 -- Default text formatting when user is prompted for input
 promptColor :: System.Console.ANSI.SGR
@@ -31,10 +28,3 @@ promptCategory = promptBase "Category? "
 -- Prompt user for a task action
 promptAction :: IO String
 promptAction = promptBase "Task?     "
-
--- Create a new instance of Standup from user input with a default done Task
-createStandup :: IO ()
-createStandup = promptCategory >>= (\c ->
-                promptAction   >>= (\a ->
-                stashPath      >>= (\path ->
-                writeStandup path $ Standup [Task c a] [Task "attn" "do work"])))

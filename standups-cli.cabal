@@ -24,6 +24,10 @@ library
                      , directory
                      , filepath
                      , time
+  other-modules:       Data
+                     , FileSystem
+                     , Prompt
+                     , ReadWrite
   default-language:    Haskell2010
 
 executable standup

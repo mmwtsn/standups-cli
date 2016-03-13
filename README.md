@@ -9,17 +9,17 @@ Manage daily standups from the command line.
 With [Stack](http://docs.haskellstack.org/en/stable/README/) installed, clone the repository and run:
 
 ```bash
-$ stack setup # Only if you haven't run this before
-$ stack build # Find the path the executable is installed
-$ ln -s /usr/local/sbin CLI_PATH # Use executable path from above
+$ stack setup                     # Only if you haven't run this before
+$ stack build                     # Note the path to your executable
+$ ln -s /usr/local/sbin EXEC_PATH # Use executable path from above
 ```
 
 ## Quick start
 
 ```bash
 $ mkdir ~/.standups # Create the directory where standups will be saved
-$ standups --help # See the list of all possible subcommands
-$ standups new # Create your first standup
+$ standups --help   # See the list of all possible subcommands
+$ standups new      # Create your first standup
 ```
 
 ## Guide

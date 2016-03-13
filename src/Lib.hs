@@ -3,16 +3,12 @@ module Lib
     , addTodo
     , standup
     , createStandup
-    , someFunc
     ) where
 
 import Data
 import FileSystem
 import Prompt
 import ReadWrite
-
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
 
 -- Create a new instance of Standup from user input with a default done Task
 createStandup :: IO ()

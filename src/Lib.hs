@@ -10,28 +10,37 @@ import FileSystem
 import Prompt
 import ReadWrite
 
+-- Boilerplate messages for prompting user for input
+pastMessage, futureMessage :: String
+pastMessage   = "What did you do since last standup?\n"
+futureMessage = "What will you do until the next standup?\n"
+
 -- Create a new instance of Standup from user input with a default done Task
 new :: IO ()
-new = promptCategory >>= \c ->
+new = putStrLn pastMessage >>
+      promptCategory >>= \c ->
       promptAction   >>= \a ->
       stashPath      >>= \path ->
       writeStandup path $ Standup [Task c a] [Task "life" "write Haskell!"]
 
 -- Prompt user for Task and append it to the current standup's "done" Task
 addDone :: IO ()
-addDone = updateStandup stashPath appendDone
+addDone = updateStandup pastMessage stashPath appendDone
 
 -- Prompt user for Task and append it to the current standup's "todo" Task
 addTodo :: IO ()
-addTodo = updateStandup stashPath appendTodo
+addTodo = updateStandup futureMessage stashPath appendTodo
 
 -- Remove the default "todo" Task and archive the in-progress standup
 standup :: IO ()
-standup = updateStandup archivePath replaceDefaultTodo
+standup = updateStandup futureMessage archivePath replaceDefaultTodo
 
 -- Prompt user for a Task and attempt to update the in-progress Standup with it
-updateStandup :: IO FilePath -> (String -> String -> Standup -> Standup) -> IO ()
-updateStandup filePath update = promptCategory >>= \c ->
+updateStandup :: String -> IO FilePath
+              -> (String -> String -> Standup -> Standup)
+              -> IO ()
+updateStandup header filePath update = putStrLn header >>
+                                promptCategory >>= \c ->
                                 promptAction   >>= \a ->
                                 filePath       >>= \path ->
                                 eitherRead c a path update

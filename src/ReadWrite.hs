@@ -26,7 +26,7 @@ encodeWithNewLine standup = appendNewLine $ encodePretty' config standup
 -- Write a JSON-encoded Standup to disk, overwriting the existing file
 writeStandup :: FilePath -> Standup -> IO ()
 writeStandup path standup = (BS.writeFile path $ encodeWithNewLine standup)
-                            >> putStr "Updated: \""
+                            >> putStr "\nUpdated: \""
                             >> putStr path
                             >> putStrLn "\""
 

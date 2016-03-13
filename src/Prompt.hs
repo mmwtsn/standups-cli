@@ -25,8 +25,8 @@ promptBase = getTask promptColor
 
 -- Prompt user for a task category
 promptCategory :: IO String
-promptCategory = promptBase "Category? "
+promptCategory = promptBase "  category: "
 
 -- Prompt user for a task action
 promptAction :: IO String
-promptAction = promptBase "Task?     "
+promptAction = promptBase "  task: "

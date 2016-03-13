@@ -31,6 +31,6 @@ help    = putStrLn $
                     , "  new         Reset the in-progress standup"
                     , "  add-done    Add a task to the in-progress done"
                     , "  add-todo    Add a task to the in-progress todo"
-                    , "  standups    Run `add-todo` then archive the standup"
+                    , "  standup     Run `add-todo` then archive the standup"
                     ]
 exit    = exitWith ExitSuccess

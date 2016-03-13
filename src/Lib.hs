@@ -15,7 +15,7 @@ new :: IO ()
 new = promptCategory >>= \c ->
       promptAction   >>= \a ->
       stashPath      >>= \path ->
-      writeStandup path $ Standup [Task c a] [Task "attn" "do work"]
+      writeStandup path $ Standup [Task c a] [Task "life" "write Haskell!"]
 
 -- Prompt user for Task and append it to the current standup's "done" Task
 addDone :: IO ()

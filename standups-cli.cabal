@@ -1,5 +1,5 @@
 name:                standups-cli
-version:             0.0.0
+version:             0.0.1
 synopsis:            Manage daily standup logging from the terminal
 description:         Please see README.md
 homepage:            http://github.com/mmwtsn/standups-cli#readme

@@ -23,7 +23,7 @@ parse _             = help    >> exit
 
 -- Helper functions for CLI version, usage information, and exit codes
 version, help, exit :: IO ()
-version = putStrLn "v0.0.1"
+version = putStrLn "v0.0.2"
 help    = putStrLn $
             unlines [ "standups [COMMAND] [-v | --version] [-h | --help]"
                     , ""

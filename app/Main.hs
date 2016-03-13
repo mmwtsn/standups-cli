@@ -10,6 +10,7 @@ main = getArgs >>= parse
 
 -- Parse input for known commands, flags, or fall through to help
 parse :: [String] -> IO ()
+parse ["new"]       = new     >> exit
 parse ["add-done"]  = addDone >> exit
 parse ["add-todo"]  = addTodo >> exit
 parse ["standup"]   = standup >> exit

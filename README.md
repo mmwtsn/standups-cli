@@ -17,21 +17,24 @@ $ ln -s /usr/local/sbin CLI_PATH # Use executable path from above
 ## Quick start
 
 ```bash
-$ mkdir ~/.standups
-$ standups --help
+$ mkdir ~/.standups # Create the directory where standups will be saved
+$ standups --help # See the list of all possible subcommands
+$ standups new # Create your first standup
 ```
 
 ## Guide
 
 ### Usage
 
-When calling `standups add-done` or `standups add-todo` you will be prompted for a new category and action which will be saved in the appropriate section of the in-progress standup.
+When calling any of the subcommands you will be prompted for a new category and action which will be saved in the appropriate section of the in-progress standup.
 
 ### Storage
 
 Standups are saved to your user's `~/.standups` directory in JSON format.
 
 While they are in progress they can be found in the `.in-progress.json` file. Once the standup is complete the in-progress standup is renamed with a time stamp and saved.
+
+The in-progress standup file is reset every time you call `new`.
 
 ### Schema
 

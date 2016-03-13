@@ -1,8 +1,8 @@
 module Lib
-    ( addDone
+    ( new
+    , addDone
     , addTodo
     , standup
-    , createStandup
     ) where
 
 import Data
@@ -11,11 +11,11 @@ import Prompt
 import ReadWrite
 
 -- Create a new instance of Standup from user input with a default done Task
-createStandup :: IO ()
-createStandup = promptCategory >>= \c ->
-                promptAction   >>= \a ->
-                stashPath      >>= \path ->
-                writeStandup path $ Standup [Task c a] [Task "attn" "do work"]
+new :: IO ()
+new = promptCategory >>= \c ->
+      promptAction   >>= \a ->
+      stashPath      >>= \path ->
+      writeStandup path $ Standup [Task c a] [Task "attn" "do work"]
 
 -- Prompt user for Task and append it to the current standup's "done" Task
 addDone :: IO ()

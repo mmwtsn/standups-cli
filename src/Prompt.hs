@@ -1,6 +1,7 @@
 module Prompt where
 
 import System.Console.ANSI
+import System.IO
 
 -- Default text formatting when user is prompted for input
 promptColor :: System.Console.ANSI.SGR
@@ -12,7 +13,8 @@ resetColor = setSGR [Reset]
 
 -- Prompt user for a line of input with a given prompt string and formatting
 getTask :: System.Console.ANSI.SGR -> String -> IO String
-getTask sgr prompt = setSGR [sgr] >>
+getTask sgr prompt = hSetBuffering stdout NoBuffering >>
+                     setSGR [sgr] >>
                      putStr prompt >>
                      resetColor >>
                      getLine

@@ -1,7 +1,7 @@
 module Lib
     ( addDone
     , addTodo
-    , archiveStandup
+    , standup
     , createStandup
     , someFunc
     ) where
@@ -30,8 +30,8 @@ addTodo :: IO ()
 addTodo = updateStandup stashPath appendTodo
 
 -- Remove the default "todo" Task and archive the in-progress standup
-archiveStandup :: IO ()
-archiveStandup = updateStandup archivePath replaceDefaultTodo
+standup :: IO ()
+standup = updateStandup archivePath replaceDefaultTodo
 
 -- Prompt user for a Task and attempt to update the in-progress Standup with it
 updateStandup :: IO FilePath -> (String -> String -> Standup -> Standup) -> IO ()
